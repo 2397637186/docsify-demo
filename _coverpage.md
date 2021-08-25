@@ -1,12 +1,7 @@
 <p align="center">
-<img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2481424715,2807309609&fm=26&gp=0.jpg" width="200" height="200"/>
+<img src="README.assets/e8bc1ffb896c21e344d779e91cc68fa.jpg" width="200" height="200"/>
 </p>
-<h1 align="center">docsify-demo</h1>
+<h1 align="center">Kiki个人仓库</h1>
 
-[常用资源](https://shimo.im/docs/MuiACIg1HlYfVxrj/)
-[GitHub](https://github.com/Snailclimb/docsify-demo)
-[开始阅读](#docsify-demo)
-
-
-
+[GitHub主页](https://github.com/Kiki199809)    [Gitee主页](https://gitee.com/kiki98)   [进入仓库](#kiki) 
 
