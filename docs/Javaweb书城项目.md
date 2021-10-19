@@ -1,4 +1,4 @@
-# 一、JavaEE项目三层架构与MVC
+## 一、JavaEE项目三层架构与MVC
 
 ![image-20210720190103179](Javaweb书城项目.assets/image-20210720190103179.png)
 
@@ -20,7 +20,7 @@ MVC 全称：Model 模型、 View 视图、 Controller 控制器。
 
 
 
-# 二、注册表单验证
+## 二、注册表单验证
 
 - 验证用户名：必须由字母，数字下划线组成，并且长度为 5 到 12 位 
 - 验证密码：必须由字母，数字下划线组成，并且长度为 5 到 12 位 
@@ -89,9 +89,9 @@ MVC 全称：Model 模型、 View 视图、 Controller 控制器。
 
 
 
-# 三、用户模块(注册与登录)
+## 三、用户模块(注册与登录)
 
-## 3.1 用户模块所需数据库与表
+### 3.1 用户模块所需数据库与表
 
 ```sql
 drop database if exists book;
@@ -115,7 +115,7 @@ select * from t_user;
 
 
 
-## 3.2 用户模块JavaBean对象
+### 3.2 用户模块JavaBean对象
 
 **注意变量名与数据库中对应，若不对应注意在Dao实现类中的sql语句中给变量起别名。**
 
@@ -132,7 +132,7 @@ public class User {
 
 
 
-## 3.3 工具类JdbcUtils
+### 3.3 工具类JdbcUtils
 
 JdbcUtils负责封装**从数据库连接池获取连接**以及**释放连接放回数据库连接池**。
 
@@ -208,7 +208,7 @@ public class JDBCUtils {
 
 
 
-## 3.4 数据库表BaseDao类
+### 3.4 数据库表BaseDao类
 
 BaseDao抽象类实现与数据库交互的基本方法，使用commons-dbutils-1.3.jar
 
@@ -303,7 +303,7 @@ public abstract class BaseDao {
 
 
 
-## 3.5 UserDao接口及其实现类
+### 3.5 UserDao接口及其实现类
 
 对于User这个JavaBean一些较具体的方法，如：
 
@@ -365,7 +365,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 }
 ```
 
-## 3.6 UserService接口及其实现类
+### 3.6 UserService接口及其实现类
 
 对于User这个JavaBean比UserDao更加具体的方法，如：注册用户、登录、检查用户名是否可用（重复）
 
@@ -427,13 +427,13 @@ public class UserServiceImpl implements UserService {
 
 
 
-## 3.7 Web层
+### 3.7 Web层
 
-### a）用户注册流程
+#### a）用户注册流程
 
 ![image-20210720194500102](Javaweb书城项目.assets/image-20210720194500102.png)
 
-### b）修改regist.html 和 regist_success.html 页面
+#### b）修改regist.html 和 regist_success.html 页面
 
 - 添加 base 标签并修改路径（浏览器 F12报红）
 
@@ -446,7 +446,7 @@ public class UserServiceImpl implements UserService {
 
   ![image-20210720194724733](Javaweb书城项目.assets/image-20210720194724733.png)
 
-### c）编写 RegistServlet 程序
+#### c）编写 RegistServlet 程序
 
 创建一个UserService接口实现类实例
 
@@ -488,15 +488,15 @@ protected void regist(HttpServletRequest request, HttpServletResponse response) 
 
 ```
 
-### d）用户登录流程
+#### d）用户登录流程
 
 ![image-20210720195256483](Javaweb书城项目.assets/image-20210720195256483.png)
 
-### e）修改 login.html 页面和 login_success.html 页面
+#### e）修改 login.html 页面和 login_success.html 页面
 
 同b
 
-### f） 编写LoginServlet 程序
+#### f） 编写LoginServlet 程序
 
 ```java
 private UserService userService = new UserServiceImpl();
@@ -525,9 +525,9 @@ protected void dopost(HttpServletRequest request, HttpServletResponse response) 
 
 
 
-# 四、项目改进
+## 四、项目改进
 
-## 4.1 页面 jsp 动态化
+### 4.1 页面 jsp 动态化
 
 1. 在 html 页面顶行添加 page 指令。 
 2. 修改文件后缀名为：.jsp 
@@ -535,7 +535,7 @@ protected void dopost(HttpServletRequest request, HttpServletResponse response) 
 
 
 
-## 4.2 抽取页面相同内容
+### 4.2 抽取页面相同内容
 
 - head 中 css、jquery、base 标签
 
@@ -574,7 +574,7 @@ protected void dopost(HttpServletRequest request, HttpServletResponse response) 
 
 - manager 模块的菜单
 
-## 4.3 登录、注册错误提示及表单回显
+### 4.3 登录、注册错误提示及表单回显
 
 如登录时，Servlet 程序端需要添加回显信息到 Request 域中然后在该jsp页面显示
 
@@ -586,7 +586,7 @@ jsp 页面，需要输出回显信息
 
 
 
-## 4.4 抽取BaseServlet
+### 4.4 抽取BaseServlet
 
 在实际的项目开发中，一个模块，一般只使用一个 Servlet 程序。
 
@@ -630,7 +630,7 @@ jsp 页面，需要输出回显信息
 
 
 
-## 4.5 数据的封装与抽取
+### 4.5 数据的封装与抽取
 
 - BeanUtils 工具类，它可以**一次性的把所有请求(一个Map)的参数注入到 JavaBean 中**
 - 使用commons-beanutils-1.8.0.jar与commons-logging-1.1.1.jar
@@ -652,7 +652,7 @@ public  static <T> T copyParamToBean(Map value, T bean) {
 
 
 
-## 4.6 用EL表达式修改表单回显
+### 4.6 用EL表达式修改表单回显
 
 以登录为例：
 
@@ -660,9 +660,9 @@ public  static <T> T copyParamToBean(Map value, T bean) {
 
 
 
-# 五、图书模块
+## 五、图书模块
 
-## 5.1 图书模块所需数据库表
+### 5.1 图书模块所需数据库表
 
 ```sql
 create table t_book( 
@@ -677,7 +677,7 @@ create table t_book(
 
 
 
-## 5.2 图书模块JavaBean
+### 5.2 图书模块JavaBean
 
 ```java
 public class Book { 
@@ -695,7 +695,7 @@ public class Book {
 
 
 
-## 5.3 BookDao接口及其实现类
+### 5.3 BookDao接口及其实现类
 
 BookDao接口：
 
@@ -748,7 +748,7 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 
 
 
-## 5.4 BookService接口及其实现类
+### 5.4 BookService接口及其实现类
 
 BookService 接口：
 
@@ -782,7 +782,7 @@ public class BookServiceImpl implements BookService {
 
  
 
-## 5.5 图书列表显示
+### 5.5 图书列表显示
 
 ![image-20210720204207758](Javaweb书城项目.assets/image-20210720204207758.png)
 
@@ -821,7 +821,7 @@ protected void list(HttpServletRequest req, HttpServletResponse resp) throws Ser
 
 
 
-## 5.6 添加图书
+### 5.6 添加图书
 
 ![image-20210720204658177](Javaweb书城项目.assets/image-20210720204658177.png)
 
@@ -847,7 +847,7 @@ book_edit.jsp：
 
 
 
-## 5.7 删除图书
+### 5.7 删除图书
 
 ![image-20210720223523863](Javaweb书城项目.assets\image-20210720223523863.png)
 
@@ -890,7 +890,7 @@ protected void delete(HttpServletRequest req, HttpServletResponse resp) throws S
 
 
 
-## 5.8添加转换 int 类型的工具方法
+### 5.8添加转换 int 类型的工具方法
 
 - 作用是简化req.getParameter()方法时字符串向整形转化的过程
 - 同时可以起到**设置默认值**的作用
@@ -914,7 +914,7 @@ public static int parseInt(String strInt,int defaultValue) {
 
 
 
-## 5.9 修改图书
+### 5.9 修改图书
 
 ![image-20210720224609427](Javaweb书城项目.assets\image-20210720224609427.png)
 
@@ -988,15 +988,15 @@ protected void update(HttpServletRequest req, HttpServletResponse resp) throws S
 
 
 
-# 六、分页模块
+## 六、分页模块
 
-## 6.1 分页模块分析
+### 6.1 分页模块分析
 
 ![image-20210720230302214](Javaweb书城项目.assets\image-20210720230302214.png)
 
 
 
-## 6.2 分页模型Page的抽取
+### 6.2 分页模型Page的抽取
 
 ```java
 /**
@@ -1021,9 +1021,9 @@ public class Page<T> {
 
 
 
-## 6.3 分页的实现
+### 6.3 分页的实现
 
-### a）初步实现
+#### a）初步实现
 
 - BookDao 代码：
 
@@ -1100,7 +1100,7 @@ protected void page(HttpServletRequest req, HttpServletResponse resp) throws Ser
 
 ![image-20210720232242428](Javaweb书城项目.assets\image-20210720232242428.png)
 
-### b）首页、上一页、下一页、末页的实现
+#### b）首页、上一页、下一页、末页的实现
 
 对book_manager.jsp 的修改
 
@@ -1128,7 +1128,7 @@ protected void page(HttpServletRequest req, HttpServletResponse resp) throws Ser
 </div>
 ```
 
-### c）跳转到指定页数的实现
+#### c）跳转到指定页数的实现
 
 - book_manager.jsp 修改：
 
@@ -1221,7 +1221,7 @@ public Page<Book> page(int pageNo, int pageSize) {
 }
 ```
 
-### d）临近页码跳转的实现
+#### d）临近页码跳转的实现
 
 需求：显示 5 个连续的页码，而且当前页码在中间。除了当前页码之外，每个页码都可以点击跳到指定页
 
@@ -1291,7 +1291,7 @@ public Page<Book> page(int pageNo, int pageSize) {
 <%--页码输出的结束--%>
 ```
 
-### e）分页后，增删改图书信息的回显
+#### e）分页后，增删改图书信息的回显
 
 以修改为例：
 
@@ -1319,7 +1319,7 @@ protected void update(HttpServletRequest req, HttpServletResponse resp) throws S
 
 
 
-## 6.4 首页index.jsp的跳转
+### 6.4 首页index.jsp的跳转
 
 ![image-20210720234331019](Javaweb书城项目.assets\image-20210720234331019.png)
 
@@ -1334,7 +1334,7 @@ protected void update(HttpServletRequest req, HttpServletResponse resp) throws S
 
 
 
-## 6.5 分页条的抽取
+### 6.5 分页条的抽取
 
 在图书管理、订单管理等界面使用，需要把图书信息抽取出来变成公共的jsp页面
 
@@ -1352,7 +1352,7 @@ protected void update(HttpServletRequest req, HttpServletResponse resp) throws S
 
 
 
-## 6.6 首页价格搜索
+### 6.6 首页价格搜索
 
 ![image-20210721094905704](Javaweb书城项目.assets/image-20210721094905704.png)
 
@@ -1446,9 +1446,9 @@ protected void update(HttpServletRequest req, HttpServletResponse resp) throws S
 
 
 
-# 七、登录功能改进
+## 七、登录功能改进
 
-## 7.1 登录显示用户名
+### 7.1 登录显示用户名
 
 - UserServlet中login()中保存用户登录的信息：
 
@@ -1479,7 +1479,7 @@ request.getSession().setAttribute("user",login);
 
 
 
-## 7.2 注销用户
+### 7.2 注销用户
 
 - 销毁 Session（或者销毁 Session中用户登录的信息）
 
@@ -1500,7 +1500,7 @@ protected void logout(HttpServletRequest request, HttpServletResponse response) 
 
 
 
-## 7.3 表单重复提交
+### 7.3 表单重复提交
 
 表单重复提交有三种常见的情况： 
 
@@ -1516,7 +1516,7 @@ protected void logout(HttpServletRequest request, HttpServletResponse response) 
 
 
 
-## 7.4 验证码的使用
+### 7.4 验证码的使用
 
 - 导入谷歌验证码的 jar 包 kaptcha-2.3.2.jar
 
@@ -1599,15 +1599,15 @@ $("#code_img").click(function () {
 
 
 
-# 八、购物车模块
+## 八、购物车模块
 
-## 8.1 购物车模块分析
+### 8.1 购物车模块分析
 
 ![image-20210722100955458](Javaweb书城项目.assets/image-20210722100955458.png)
 
 
 
-## 8.2 购物车模型(Session版)
+### 8.2 购物车模型(Session版)
 
 - CartItem类（JavaBean）：
 
@@ -1729,7 +1729,7 @@ public class Cart {
 
 
 
-## 8.3 加入购物车
+### 8.3 加入购物车
 
 - CartServlet：
 
@@ -1780,7 +1780,7 @@ protected void addItem(HttpServletRequest request, HttpServletResponse response)
 
 
 
-## 8.4 购物车展示
+### 8.4 购物车展示
 
 ```jsp
 <body>
@@ -1845,7 +1845,7 @@ protected void addItem(HttpServletRequest request, HttpServletResponse response)
 
 
 
-## 8.5 删除购物车商品项
+### 8.5 删除购物车商品项
 
 - CartServlet：
 
@@ -1879,7 +1879,7 @@ $("a.deleteItemClass").click(function () {
 
 
 
-## 8.6 清空购物车
+### 8.6 清空购物车
 
 - CartServlet：
 
@@ -1911,7 +1911,7 @@ $("a.clearCartClass").click(function () {
 
 
 
-## 8.7 修改购物车商品数量
+### 8.7 修改购物车商品数量
 
 - CartServlet：
 
@@ -1961,7 +1961,7 @@ $(".updateCount").change(function () {
 
 
 
-## 8.8 首页与购物车数据回显
+### 8.8 首页与购物车数据回显
 
 - 在添加商品到购物车的时候，保存最后一个添加的商品名称（CartServlet中的addItem()）：
 
@@ -1991,15 +1991,15 @@ request.getSession().setAttribute("lastName", cartItem.getName());
 
 
 
-# 九、订单模块
+## 九、订单模块
 
-## 9.1 订单模块分析
+### 9.1 订单模块分析
 
 <img src="Javaweb书城项目.assets/image-20210727161545414.png" alt="image-20210727161545414" style="zoom: 67%;" />
 
 
 
-## 9.2 订单模块数据库表
+### 9.2 订单模块数据库表
 
 ```sql
 use book;
@@ -2026,7 +2026,7 @@ create table t_order_item(
 
 
 
-## 9.3 订单模块数据模型
+### 9.3 订单模块数据模型
 
 ```java
 /** * 订 单 */ 
@@ -2053,7 +2053,7 @@ public class OrderItem {
 
 
 
-## 9.4 订单模块Dao程序
+### 9.4 订单模块Dao程序
 
 以生成订单为例：
 
@@ -2096,7 +2096,7 @@ public class OrderItemDaoImpl extends BaseDao implements OrderItemDao {
 
 
 
-## 9.5 订单模块Service程序
+### 9.5 订单模块Service程序
 
 以生成订单为例：
 
@@ -2141,7 +2141,7 @@ public class OrderServiceImpl implements OrderService {
 }
 ```
 
-## 9.6 订单模块web层
+### 9.6 订单模块web层
 
 以生成订单为例：
 
@@ -2188,9 +2188,9 @@ public class OrderServlet extends BaseServlet {
 
 
 
-# 十、Filter过滤器和Ajax请求的应用
+## 十、Filter过滤器和Ajax请求的应用
 
-## 10.1 使用 Filter过滤器实现权限检查
+### 10.1 使用 Filter过滤器实现权限检查
 
 使用 Filter 过滤器拦截/pages/manager/所有内容，实现权限检查，登录后才能访问
 
@@ -2242,7 +2242,7 @@ public class ManagerFilter implements Filter {
 
 
 
-## 10.2 使用 Filter 和 ThreadLocal 组合管理事务
+### 10.2 使用 Filter 和 ThreadLocal 组合管理事务
 
 使用 ThreadLocal 来确保所有 dao 操作都在同一个 Connection 连接对象中完成
 
@@ -2559,7 +2559,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 
 
-## 10.3 使用 AJAX 验证用户名是否可用
+### 10.3 使用 AJAX 验证用户名是否可用
 
 - 用于取代点击注册按钮后在Servlet程序中判断用户名是否可用
 
@@ -2606,7 +2606,7 @@ protected void ajaxExistsUsername(HttpServletRequest request, HttpServletRespons
 
 
 
-## 10.4 使用 AJAX 修改把商品添加到购物车
+### 10.4 使用 AJAX 修改把商品添加到购物车
 
 在点击加入购物车按钮后，通过Ajax请求来进行购物车商品数量和最后添加的商品名称的局部更新
 
